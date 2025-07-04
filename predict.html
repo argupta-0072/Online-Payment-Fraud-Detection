@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Fraud</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2.2em;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-nav {
+            background: #f8f9fa;
+            color: #667eea;
+            border: 1px solid #dee2e6;
+        }
+
+        .btn-nav:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Fraud Analysis</h1>
+
+        <div class="nav-buttons">
+            <a href="/" class="btn btn-nav">Home</a>
+            <a href="/predict" class="btn btn-nav">Predict</a>
+        </div>
+
+        <form action="/result" method="post">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="step">Step:</label>
+                    <input type="number" name="step" id="step" min="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="type">Transaction Type:</label>
+                    <select name="type" id="type" required>
+                        <option value="">Select Type</option>
+                        <option value="0">CASH_IN</option>
+                        <option value="1">CASH_OUT</option>
+                        <option value="2">DEBIT</option>
+                        <option value="3">PAYMENT</option>
+                        <option value="4">TRANSFER</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input type="number" name="amount" id="amount" step="0.01" min="0" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nameOrig">Name Origin (ID):</label>
+                    <input type="number" name="nameOrig" id="nameOrig" min="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="nameDest">Name Destination (ID):</label>
+                    <input type="number" name="nameDest" id="nameDest" min="0" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="oldbalanceOrg">Old Balance Origin:</label>
+                    <input type="number" name="oldbalanceOrg" id="oldbalanceOrg" step="0.01" min="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="newbalanceOrig">New Balance Origin:</label>
+                    <input type="number" name="newbalanceOrig" id="newbalanceOrig" step="0.01" min="0" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="oldbalanceDest">Old Balance Destination:</label>
+                    <input type="number" name="oldbalanceDest" id="oldbalanceDest" step="0.01" min="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="newbalanceDest">New Balance Destination:</label>
+                    <input type="number" name="newbalanceDest" id="newbalanceDest" step="0.01" min="0" required>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">🔍 Analyze for Fraud</button>
+        </form>
+    </div>
+</body>
+</html>
